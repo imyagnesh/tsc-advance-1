@@ -4,3 +4,4 @@
 
 - advance javascript
 - react
+- redux
