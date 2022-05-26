@@ -12,41 +12,52 @@ import React, { Component } from 'react';
 // }
 
 class App extends Component {
-  state = {
-    counter: 0,
-  };
+  // state = {
+  //   counter: 0,
+  // };
 
-  incrementCounter = () => {
-    // const { counter } = this.state;
-    // this.setState({
-    //   counter: counter + 1,
-    // });
+  constructor(props) {
+    super(props);
 
-    // this.setState({ counter: this.state.counter + 1 });
+    this.state = {
+      greet: `Hello ${props.name}`,
+    };
+  }
 
-    this.setState(({ counter }) => ({
-      counter: counter + 1,
+  // greetInEnglish = () => {
+  //   this.setState((state, { name }) => ({
+  //     greet: `Hello ${name}`,
+  //   }));
+  // };
+
+  // greetInFrench = () => {
+  //   this.setState((state, { name }) => ({
+  //     greet: `hola ${name}`,
+  //   }));
+  // };
+
+  greet = language => {
+    this.setState((state, { name }) => ({
+      greet: `${
+        language === 'en' ? 'Hello' : 'hola'
+      } ${name}`,
     }));
-
-    // this.setState(({ counter }) => ({
-    //   counter: counter + 1,
-    // }));
   };
 
   render() {
-    console.log('render');
-    const { counter } = this.state;
-
+    const { greet } = this.state;
     return (
       <div>
-        <h1 className="text-6xl font-bold text-red-500">
-          Hello from h1
-        </h1>
-        <h2>{`Counter: ${counter}`}</h2>
+        <h1>{greet}</h1>
         <button
           type="button"
-          onClick={this.incrementCounter}>
-          Increment Counter
+          onClick={() => this.greet('en')}>
+          English
+        </button>
+        <button
+          type="button"
+          onClick={() => this.greet('fr')}>
+          French
         </button>
       </div>
     );
