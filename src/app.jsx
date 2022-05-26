@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Child1 from './Child1';
 
 // Function Component
 // function App() {
@@ -11,54 +12,83 @@ import React, { Component } from 'react';
 //   );
 // }
 
-class App extends Component {
-  // state = {
-  //   counter: 0,
-  // };
+// 4 Stages of Life Cycle
 
+// 1. Mounting
+// a. Constructor
+// b. getDerivedStateFromProps
+// c. render
+// d.
+// 2. Updating
+// 3. Unmounting
+// 4. Error
+
+class App extends Component {
+  // Note: you can make api(server) call but you cant set state value base on api response
   constructor(props) {
+    console.log('Constructor');
+
     super(props);
 
     this.state = {
-      greet: `Hello ${props.name}`,
+      greet: `hello ${props.name}`,
     };
+
+    console.log(document.getElementById('heading'));
+    // analytics
+    // api call
   }
 
-  // greetInEnglish = () => {
-  //   this.setState((state, { name }) => ({
-  //     greet: `Hello ${name}`,
-  //   }));
-  // };
+  // static getDerivedStateFromProps(props, state) {
+  //   if (!state?.greet) {
+  //     return {
+  //       greet: `hello ${props.name}`,
+  //     };
+  //   }
+  //   return null;
+  // }
 
-  // greetInFrench = () => {
-  //   this.setState((state, { name }) => ({
-  //     greet: `hola ${name}`,
-  //   }));
-  // };
+  // DOM manipulation
+  // Event register
+  // fetch data on page load
+  componentDidMount() {
+    console.log(document.getElementById('heading'));
+    document.getElementById('heading').style = 'color: red';
 
-  greet = language => {
+    document.addEventListener('copy', () => {
+      console.log('copied');
+    });
+
+    // api call
+    // setState
+  }
+
+  greetUser = language => {
     this.setState((state, { name }) => ({
-      greet: `${
-        language === 'en' ? 'Hello' : 'hola'
-      } ${name}`,
+      greet: `${language === 'en' ? 'hello' : 'hola'} ${
+        state.name
+      }`,
     }));
   };
 
   render() {
-    const { greet } = this.state;
+    console.log('render');
+    const { greet, message } = this.state;
     return (
       <div>
-        <h1>{greet}</h1>
+        <h1 id="heading">{greet}</h1>
+        <h2>{message}</h2>
         <button
           type="button"
-          onClick={() => this.greet('en')}>
+          onClick={() => this.greetUser('en')}>
           English
         </button>
         <button
           type="button"
-          onClick={() => this.greet('fr')}>
+          onClick={() => this.greetUser('fr')}>
           French
         </button>
+        <Child1 />
       </div>
     );
   }
