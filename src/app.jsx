@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Child1 from './Child1';
+import Child2 from './Child2';
 
 // Function Component
 // function App() {
@@ -18,9 +19,18 @@ import Child1 from './Child1';
 // a. Constructor
 // b. getDerivedStateFromProps
 // c. render
-// d.
+// d. componentDidMount
+
 // 2. Updating
+// a. getDerivedStateFromProps
+// b. shouldComponentUpdate
+// c. render
+// d. getSnapshotBeforeUpdate
+// e. componentDidUpdate
+
 // 3. Unmounting
+//
+
 // 4. Error
 
 class App extends Component {
@@ -32,6 +42,10 @@ class App extends Component {
 
     this.state = {
       greet: `hello ${props.name}`,
+      counter: 0,
+      user: {
+        name: 'yagnesh',
+      },
     };
 
     console.log(document.getElementById('heading'));
@@ -63,6 +77,12 @@ class App extends Component {
     // setState
   }
 
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    return 10;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {}
+
   greetUser = language => {
     this.setState((state, { name }) => ({
       greet: `${language === 'en' ? 'hello' : 'hola'} ${
@@ -71,13 +91,29 @@ class App extends Component {
     }));
   };
 
+  changeUsername = () => {
+    this.setState(({ user }) => ({
+      user: { ...user, name: 'rohit' },
+    }));
+  };
+
+  changeCounter = () => {
+    this.setState(({ counter }) => ({
+      counter: counter + 1,
+    }));
+  };
+
   render() {
-    console.log('render');
-    const { greet, message } = this.state;
+    const { greet, message, user, counter } = this.state;
     return (
       <div>
         <h1 id="heading">{greet}</h1>
         <h2>{message}</h2>
+        <h3>{user.name}</h3>
+        <h4>{counter}</h4>
+        <button type="button" onClick={this.changeCounter}>
+          Change counter
+        </button>
         <button
           type="button"
           onClick={() => this.greetUser('en')}>
@@ -89,6 +125,11 @@ class App extends Component {
           French
         </button>
         <Child1 />
+        {counter < 5 && <Child2 user={user} />}
+
+        <button type="button" onClick={this.changeUsername}>
+          Change Username
+        </button>
       </div>
     );
   }
