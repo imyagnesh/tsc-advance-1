@@ -5,13 +5,26 @@ export default class Child2 extends PureComponent {
   //   shouldComponentUpdate(nextProps, nextState) {
   //     return shallowCompare(this, nextProps, nextState);
   //   }
+  state = {
+    counter: 0,
+    error: '',
+  };
 
   componentDidMount() {
-    document.addEventListener('mousemove', this.mouseMove);
+    try {
+      document.addEventListener(
+        'mousemove',
+        this.mouseMove
+      );
 
-    this.interval = setInterval(() => {
-      console.log('interval');
-    }, 1000);
+      this.interval = setInterval(() => {
+        this.setState(({ counter }, props) => ({
+          counter: counter + 1,
+        }));
+      }, 1000);
+    } catch (error) {
+      this.setState({ error });
+    }
   }
 
   componentWillUnmount() {
@@ -23,12 +36,25 @@ export default class Child2 extends PureComponent {
   }
 
   mouseMove = () => {
-    console.log('mouse moving...');
+    try {
+      console.log('mouse moving...');
+    } catch (error) {
+      this.setState({ error });
+    }
   };
 
   render() {
     console.log('Child 2 render');
     const { user } = this.props;
+    const { counter, error } = this.state;
+
+    if (error) {
+      return <h1>{error.message}</h1>;
+    }
+
+    if (counter > 10) {
+      throw new Error('something wrong');
+    }
 
     return (
       <div>

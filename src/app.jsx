@@ -29,9 +29,10 @@ import Child2 from './Child2';
 // e. componentDidUpdate
 
 // 3. Unmounting
-//
+// a. componentWillUnmount
 
 // 4. Error
+// a.
 
 class App extends Component {
   // Note: you can make api(server) call but you cant set state value base on api response
@@ -83,6 +84,16 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
+  static getDerivedStateFromError(error) {
+    return {
+      error,
+    };
+  }
+
+  componentDidCatch(error, info) {
+    console.log(info);
+  }
+
   greetUser = language => {
     this.setState((state, { name }) => ({
       greet: `${language === 'en' ? 'hello' : 'hola'} ${
@@ -104,7 +115,12 @@ class App extends Component {
   };
 
   render() {
-    const { greet, message, user, counter } = this.state;
+    const { greet, message, user, counter, error } =
+      this.state;
+    if (error) {
+      return <h1>{error.message}</h1>;
+    }
+
     return (
       <div>
         <h1 id="heading">{greet}</h1>
