@@ -6,12 +6,12 @@ import './style.css';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-App.getDerivedStateFromProps = () => {
-  console.log(document.getElementById('heading'));
-  console.log('getDerivedStateFromProps');
-  return {
-    message: 'I am calling you from outside',
-  };
-};
+// App.getDerivedStateFromProps = () => {
+//   console.log(document.getElementById('heading'));
+//   console.log('getDerivedStateFromProps');
+//   return {
+//     message: 'I am calling you from outside',
+//   };
+// };
 
-root.render(<App name="yagnesh" />);
+root.render(<App />);

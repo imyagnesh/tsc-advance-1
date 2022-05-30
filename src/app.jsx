@@ -1,154 +1,64 @@
-import React, { Component } from 'react';
-import Child1 from './Child1';
-import Child2 from './Child2';
+import React, { Component, createRef } from 'react';
 
-// Function Component
-// function App() {
-//   return (
-//     <div>
-//       <h1 className="text-6xl font-bold text-red-500">
-//         Hello from h1
-//       </h1>
-//     </div>
-//   );
-// }
-
-// 4 Stages of Life Cycle
-
-// 1. Mounting
-// a. Constructor
-// b. getDerivedStateFromProps
-// c. render
-// d. componentDidMount
-
-// 2. Updating
-// a. getDerivedStateFromProps
-// b. shouldComponentUpdate
-// c. render
-// d. getSnapshotBeforeUpdate
-// e. componentDidUpdate
-
-// 3. Unmounting
-// a. componentWillUnmount
-
-// 4. Error
-// a.
-
-class App extends Component {
-  // Note: you can make api(server) call but you cant set state value base on api response
-  constructor(props) {
-    console.log('Constructor');
-
-    super(props);
-
-    this.state = {
-      greet: `hello ${props.name}`,
-      counter: 0,
-      user: {
-        name: 'yagnesh',
-      },
-    };
-
-    console.log(document.getElementById('heading'));
-    // analytics
-    // api call
-  }
-
-  // static getDerivedStateFromProps(props, state) {
-  //   if (!state?.greet) {
-  //     return {
-  //       greet: `hello ${props.name}`,
-  //     };
-  //   }
-  //   return null;
-  // }
-
-  // DOM manipulation
-  // Event register
-  // fetch data on page load
-  componentDidMount() {
-    console.log(document.getElementById('heading'));
-    document.getElementById('heading').style = 'color: red';
-
-    document.addEventListener('copy', () => {
-      console.log('copied');
-    });
-
-    // api call
-    // setState
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    return 10;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {}
-
-  static getDerivedStateFromError(error) {
-    return {
-      error,
-    };
-  }
-
-  componentDidCatch(error, info) {
-    console.log(info);
-  }
-
-  greetUser = language => {
-    this.setState((state, { name }) => ({
-      greet: `${language === 'en' ? 'hello' : 'hola'} ${
-        state.name
-      }`,
-    }));
+class Todo extends Component {
+  state = {
+    todoList: [],
   };
 
-  changeUsername = () => {
-    this.setState(({ user }) => ({
-      user: { ...user, name: 'rohit' },
-    }));
-  };
+  inputRef = createRef();
 
-  changeCounter = () => {
-    this.setState(({ counter }) => ({
-      counter: counter + 1,
-    }));
+  addTodo = event => {
+    event.preventDefault();
+    const todoText = this.inputRef.current;
+    this.setState(
+      ({ todoList }) => ({
+        todoList: [
+          ...todoList,
+          {
+            id: new Date().valueOf(),
+            text: todoText.value,
+          },
+        ],
+      }),
+      () => (todoText.value = '')
+    );
   };
 
   render() {
-    const { greet, message, user, counter, error } =
-      this.state;
-    if (error) {
-      return <h1>{error.message}</h1>;
-    }
+    console.log('render');
+    const { todoList } = this.state;
 
     return (
-      <div>
-        <h1 id="heading">{greet}</h1>
-        <h2>{message}</h2>
-        <h3>{user.name}</h3>
-        <h4>{counter}</h4>
-        <button type="button" onClick={this.changeCounter}>
-          Change counter
-        </button>
-        <button
-          type="button"
-          onClick={() => this.greetUser('en')}>
-          English
-        </button>
-        <button
-          type="button"
-          onClick={() => this.greetUser('fr')}>
-          French
-        </button>
-        <Child1 />
-        {counter < 5 && <Child2 user={user} />}
-
-        <button type="button" onClick={this.changeUsername}>
-          Change Username
-        </button>
+      <div className="flex flex-col items-center">
+        <h1>Todo Application</h1>
+        <form className="flex my-4" onSubmit={this.addTodo}>
+          <input
+            ref={this.inputRef}
+            type="text"
+            placeholder="Please Enter your todo here..."
+          />
+          <button
+            className="btn rounded-l-none"
+            type="submit">
+            Add Todo
+          </button>
+        </form>
+        <div className="w-full max-w-5xl">
+          {todoList.map((item, index) => (
+            <div className="flex m-4 items-center">
+              <input type="checkbox" />
+              <p className="flex-1 px-4">{item.text}</p>
+              <button
+                type="button"
+                className="btn bg-red-400">
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default Todo;
