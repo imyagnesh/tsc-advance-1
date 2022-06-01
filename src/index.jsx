@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './app';
+import { ThemeProvider } from './context/theme';
+import { TodoProvider } from './context/todo';
 import './style.css';
 
 const container = document.getElementById('root');
@@ -14,4 +16,10 @@ const root = createRoot(container);
 //   };
 // };
 
-root.render(<App />);
+root.render(
+  <ThemeProvider>
+    <TodoProvider>
+      <App />
+    </TodoProvider>
+  </ThemeProvider>
+);
