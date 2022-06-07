@@ -8,7 +8,8 @@
     "start": "webpack serve",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start:server": "json-server --watch db.json"
+    "start:server": "json-server --watch db.json",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,10 @@
     "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
     "@tailwindcss/forms": "^0.5.2",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
     "autoprefixer": "^10.4.7",
+    "babel-jest": "^28.1.1",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "eslint": "^8.16.0",
@@ -40,6 +44,8 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
     "json-server": "^0.17.0",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",

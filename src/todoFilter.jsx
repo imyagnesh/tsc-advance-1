@@ -7,6 +7,7 @@ function TodoFilter() {
       {({ loadTodo }) => (
         <div className="w-full flex">
           <button
+            data-testid="btnAll"
             type="button"
             className="btn flex-1 rounded-none"
             onClick={() => loadTodo('all')}>
@@ -14,12 +15,14 @@ function TodoFilter() {
           </button>
           <button
             type="button"
+            data-testid="btnPending"
             className="btn flex-1 rounded-none"
             onClick={() => loadTodo('pending')}>
             Pending
           </button>
           <button
             type="button"
+            data-testid="btnCompleted"
             className="btn flex-1 rounded-none"
             onClick={() => loadTodo('completed')}>
             Completed
