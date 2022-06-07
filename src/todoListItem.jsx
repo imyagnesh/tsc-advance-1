@@ -11,7 +11,7 @@ function TodoListItem({ item }) {
           <input
             type="checkbox"
             checked={item.isDone}
-            onChange={() => toggleComplete(item.id)}
+            onChange={() => toggleComplete(item)}
           />
         )}
       </TodoContext.Consumer>
