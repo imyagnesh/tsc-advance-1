@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { TodoContext } from './context/todo';
+import { TodoContext } from '../../context/todo';
 
 function TodoFilter() {
   return (

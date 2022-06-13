@@ -1,7 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import TodoFilter from './todoFilter';
-import { TodoContext, TodoProvider } from './context/todo';
+import {
+  TodoContext,
+  TodoProvider,
+} from '../../context/todo';
 
 test('should render todo filter component', () => {
   const { container } = render(

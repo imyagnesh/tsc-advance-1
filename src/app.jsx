@@ -1,19 +1,35 @@
-import React, { PureComponent } from 'react';
-import TodoFilter from './todoFilter';
-import TodoForm from './todoForm';
-import TodoList from './todoList';
+import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
+import Products from './Pages/Products';
+import Register from './Pages/Register';
 
-class Todo extends PureComponent {
-  render() {
-    return (
-      <div className="flex flex-col items-center bg-slate-100 h-screen">
-        <h1>Todo Application</h1>
-        <TodoForm />
-        <TodoList />
-        <TodoFilter />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <main>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/products">Products</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+      </ul>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </main>
+  );
 }
 
-export default Todo;
+export default App;

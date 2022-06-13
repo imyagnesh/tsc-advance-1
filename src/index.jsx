@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import { ThemeProvider } from './context/theme';
 import { TodoProvider } from './context/todo';
@@ -17,9 +18,11 @@ const root = createRoot(container);
 // };
 
 root.render(
-  <ThemeProvider>
-    <TodoProvider>
-      <App />
-    </TodoProvider>
-  </ThemeProvider>
+  <BrowserRouter>
+    <ThemeProvider>
+      <TodoProvider>
+        <App />
+      </TodoProvider>
+    </ThemeProvider>
+  </BrowserRouter>
 );
